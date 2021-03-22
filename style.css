@@ -1,0 +1,14 @@
+p, input {
+    font-size: 18px;
+}
+
+body {
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#head_title {
+    font-size: 32px;
+    padding-bottom: 10px;
+    font-weight: bold;  
+}
