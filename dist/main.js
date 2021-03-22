@@ -1,0 +1,1 @@
+(()=>{"use strict";document.writeln("The sum of 10 and 5 is ",(10,5,15).toString(),"<br/>"),document.writeln("The square of 12 is ",144..toString(),"<br/>")})();
