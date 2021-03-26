@@ -32,7 +32,7 @@ export function addMessageForm() {
         event.preventDefault();
         const formData = new FormData(messageForm);
 
-        const newMessage = new Message(formData.get("messageTitle").toString(),
+        const newMessage = new Message( formData.get("messageTitle").toString(),
                                         formData.get("messageBody").toString(),
                                         false);
 
@@ -40,3 +40,4 @@ export function addMessageForm() {
         messageForm.reset();
     })
 }
+

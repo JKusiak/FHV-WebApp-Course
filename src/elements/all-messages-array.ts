@@ -1,10 +1,11 @@
 import { Message } from './message';
 import { decreaseMsgCounter, increaseMsgCounter, messageCounter} from './message-counter';
+import { updateNavBar } from './navigation-bar';
 
 let allMessages = JSON.parse(localStorage.getItem('allmessages') || '[]');
 
 export function addMessagesArray() {
-    // localStorage.clear();
+    localStorage.clear();
 
     if (allMessages.length > 0) {
         for (let msgNumber in allMessages) {
@@ -46,7 +47,7 @@ export function addMessagesArray() {
 export function addNewMessage(newMessage: Message) {    
     allMessages.push(newMessage);
     localStorage.setItem('allmessages', JSON.stringify(allMessages));
-    messageCounter.notify(messageCounter.value);
+    updateNavBar();
 }
 
 export function addListeners() {
