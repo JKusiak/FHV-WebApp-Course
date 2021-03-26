@@ -2,30 +2,29 @@ import { addNewMessage } from "./all-messages-array";
 import { Message } from "./message";
 
 export function addMessageForm() {
+    const formWrapper = document.createElement("div");
+    formWrapper.className = "formWrapper";
+    
     const messageForm = document.createElement("form");
     messageForm.id = "messageform";
 
-    const titleLabel = document.createElement("label");
-    titleLabel.textContent = "Title";
-
     const titleInput = document.createElement("input");
     titleInput.type = "text";
-    titleInput.name = "Message title";
-
-    const bodyLabel = document.createElement("label");
-    bodyLabel.textContent = "Message";
+    titleInput.name = "messageTitle";
+    titleInput.placeholder = "Title";
 
     const bodyInput = document.createElement("input");
     bodyInput.type = "text";
-    bodyInput.name = "Message body";
+    bodyInput.name = "messageBody";
+    bodyInput.placeholder = "Message";
 
     const submitButton = document.createElement("button");
+    submitButton.id = "submitMessageBtn";
     submitButton.textContent = "Send";
 
-    document.body.appendChild(messageForm);
-    messageForm.appendChild(titleLabel);
+    document.body.appendChild(formWrapper);
+    formWrapper.appendChild(messageForm);
     messageForm.appendChild(titleInput);
-    messageForm.appendChild(bodyLabel);
     messageForm.appendChild(bodyInput); 
     messageForm.appendChild(submitButton);
 
@@ -33,8 +32,8 @@ export function addMessageForm() {
         event.preventDefault();
         const formData = new FormData(messageForm);
 
-        const newMessage = new Message(formData.get("Message title").toString(),
-                                        formData.get("Message body").toString(),
+        const newMessage = new Message(formData.get("messageTitle").toString(),
+                                        formData.get("messageBody").toString(),
                                         false);
 
         addNewMessage(newMessage);

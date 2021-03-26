@@ -1,14 +1,14 @@
 export function addNavBar() {
     const navBarDiv = document.createElement("div");
-    navBarDiv.className = "topnav";
+    navBarDiv.className = "topNav";
     
     const homeRef = document.createElement("a");
-    homeRef.className = "allmessages";
+    homeRef.className = "allMessages";
     homeRef.href = "home.html";
     homeRef.textContent = "Messages";
 
     const newMessageRef = document.createElement("a");
-    newMessageRef.className = "newmessage";
+    newMessageRef.className = "newMessage";
     newMessageRef.href = "newmessage.html";
     newMessageRef.textContent = "Add new message";
 

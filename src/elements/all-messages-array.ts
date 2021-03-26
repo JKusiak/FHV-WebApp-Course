@@ -1,5 +1,5 @@
 import { Message } from './message';
-import { decreaseMsgCounter, increaseMsgCounter} from './message-counter';
+import { decreaseMsgCounter, increaseMsgCounter, messageCounter} from './message-counter';
 
 let allMessages = JSON.parse(localStorage.getItem('allmessages') || '[]');
 
@@ -17,10 +17,11 @@ export function addMessagesArray() {
     
             const messageBody = document.createElement('p');
             messageBody.textContent = allMessages[msgNumber].messageBody.toString();
-            // messageBody.style.display = "none";
-    
+            messageBody.style.display = "none";
+            
             const messageStatus = document.createElement('p');
             messageStatus.textContent = allMessages[msgNumber].isRead.toString();
+            messageStatus.style.display = "none";
     
             if (!allMessages[msgNumber].isRead){
                 messageDisplay.style.backgroundColor = '#EAF3FA';
@@ -45,18 +46,27 @@ export function addMessagesArray() {
 export function addNewMessage(newMessage: Message) {    
     allMessages.push(newMessage);
     localStorage.setItem('allmessages', JSON.stringify(allMessages));
+    messageCounter.notify(messageCounter.value);
 }
 
 export function addListeners() {
     document.querySelectorAll<HTMLElement>('.messageDisplay').forEach(element => {
         element.addEventListener('click', event => {
+            let body = element.children[1];
+            
+            if (body.style.display === 'none') {
+                // body.style = window.getComputedStyle(document.querySelector('.messageDisplay'));
+                body.style.display = 'block';
+            } else if (body.style.display === 'block') {
+                body.style.display = 'none';
+            }
 
-            if (allMessages[element.getAttribute('id')].isRead == false){
-                element.style.backgroundColor = '#FFFFFF';
+            if (!allMessages[element.getAttribute('id')].isRead) {
                 allMessages[element.getAttribute('id')].isRead = true;
+                element.style.backgroundColor = '#FFFFFF';
                 decreaseMsgCounter();
                 localStorage.setItem('allmessages', JSON.stringify(allMessages));
-            }
+            } 
         })
     });
 }
