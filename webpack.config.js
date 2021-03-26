@@ -12,18 +12,6 @@ module.exports = {
         use: 'babel-loader',
         exclude: /node_modules/,
       }
-      // {
-      //   test:/\.html$/,
-      //   use: [
-      //     {
-      //       loader: 'file-loader',
-      //       options: {
-      //         name: '[name].[ext]'
-      //       }
-      //     }
-      //   ],
-      //   // exclude: path.resolve(__dirname, 'src/home.html')
-      // }
     ],
   },
   resolve: {

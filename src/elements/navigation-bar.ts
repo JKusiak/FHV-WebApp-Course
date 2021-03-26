@@ -3,15 +3,16 @@ export function addNavBar() {
     navBarDiv.className = "topnav";
     
     const homeRef = document.createElement("a");
-    homeRef.className = "active";
-    homeRef.href = "#messages";
+    homeRef.className = "allmessages";
+    homeRef.href = "home.html";
     homeRef.textContent = "Messages";
 
     const newMessageRef = document.createElement("a");
-    newMessageRef.href = "#newmessage";
-    newMessageRef.textContent = "New message";
+    newMessageRef.className = "newmessage";
+    newMessageRef.href = "newmessage.html";
+    newMessageRef.textContent = "Add new message";
 
     document.body.appendChild(navBarDiv);
-    navBarDiv?.appendChild(homeRef);
-    navBarDiv?.appendChild(newMessageRef);
+    navBarDiv.appendChild(newMessageRef);
+    navBarDiv.appendChild(homeRef);
 }
