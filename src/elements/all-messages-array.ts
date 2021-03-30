@@ -5,7 +5,7 @@ import { updateNavBar } from './navigation-bar';
 let allMessages = JSON.parse(localStorage.getItem('allmessages') || '[]');
 
 export function addMessagesArray() {
-    localStorage.clear();
+    // localStorage.clear();
 
     if (allMessages.length > 0) {
         for (let msgNumber in allMessages) {
