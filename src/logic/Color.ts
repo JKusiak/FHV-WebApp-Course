@@ -1,6 +1,6 @@
 export enum Color {
-        Clubs = "Clubs",
-        Spades = "Spades",
-        Diamonds = "Diamonds",
-        Hearts = "Hearts",
+        CLUBS = "Clubs",
+        SPADES = "Spades",
+        DIAMONDS = "Diamonds",
+        HEARTS = "Hearts"
 }

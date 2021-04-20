@@ -10,18 +10,16 @@ export class Game {
             this.score = 0;
       }
 
-
       compareCards(bet: string) {
-            let prevCardValue = this.getCurrentCard().value;
+            let prevCardValue = parseInt(this.getCurrentCard().value);
 
             this.flipCard();
 
-            let currCardValue = this.getCurrentCard().value;
+            let newCardValue = parseInt(this.getCurrentCard().value);
 
-
-            if (prevCardValue < currCardValue && bet === "higher") {
+            if ((prevCardValue < newCardValue) && bet === "higher") {
                   this.score += 1;
-            } else if (prevCardValue > currCardValue && bet === "lower") {
+            } else if ((prevCardValue > newCardValue) && bet === "lower") {
                   this.score += 1;
             }
       }

@@ -8,12 +8,15 @@ export class Deck {
         constructor() {
                 this.deck = [];
 
-                for (let color in Object.values(Color)) {
-                        for (let figure in Object.values(Figure)) {
+                const figures = Object.values(Figure);
+                const colors = Object.values(Color);
+
+                colors.forEach((color) => {
+                        figures.forEach((figure) => {
                                 let nextCard = new Card(figure, color);
                                 this.deck.push(nextCard);
-                        }
-                }
+                        })
+                })
 
                 this.shuffle();
         }
