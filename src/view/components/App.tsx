@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { Game } from "../../logic/Game";
+import { GlobalStyle } from '../styles/GlobalStyle';
 import Card from './Card';
 import NextButton from './NextButton';
+import ScoreDiv from './ScoreDiv';
+
 
 let game = new Game();
+
+const ButtonWrapper = styled.div`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+`;
+
 
 function App() {
   const [score, setScore] = useState(game.getScore());
@@ -26,11 +37,14 @@ function App() {
 
   return (
     <>
+      <GlobalStyle/>
       <Card color={cardColor} value={cardValue}></Card>
-      {!isDisabled && <div>{score}</div>}
-      <NextButton disabled={isDisabled} onClick={() => moveToNext("higher")}>Higher</NextButton>
-      <NextButton disabled={isDisabled} onClick={() => moveToNext("lower")}>Lower</NextButton>
-      {isDisabled && <p>Game over, your final score is {score}</p>}
+      <ButtonWrapper>
+        <NextButton disabled={isDisabled} onClick={() => moveToNext("higher")}>Higher</NextButton>
+        <NextButton disabled={isDisabled} onClick={() => moveToNext("lower")}>Lower</NextButton>
+      </ButtonWrapper>
+      {!isDisabled && <ScoreDiv>Current score: {score}</ScoreDiv>}
+      {isDisabled && <ScoreDiv>Game over, your final score is {score}</ScoreDiv>}
     </>
   );
 }

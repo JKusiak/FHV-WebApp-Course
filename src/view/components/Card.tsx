@@ -4,11 +4,28 @@ import club from "../resources/club.png";
 import spade from "../resources/spade.png";
 import diamond from "../resources/diamond.png";
 import heart from "../resources/heart.png";
+import styled from 'styled-components';
 
 interface CardProps {
       color: string;
       value: string;
 }
+
+const StyledCardValue = styled.span`
+      font-size: 175px;
+      font-weight: 600;
+      margin-right: 0.1em;
+`;
+
+const StyledCardColor = styled.img`
+      max-width: 140px;
+`;
+
+const CardWrapper = styled.div`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+`;
 
 const Card:FC<CardProps> = (props) => {
      
@@ -49,10 +66,10 @@ const Card:FC<CardProps> = (props) => {
       }
 
       return (
-            <div>
-                  <span>{cardValue}</span>
-                  <img src={cardImage} alt=""/>
-            </div>
+            <CardWrapper className="Card">
+                  <StyledCardValue>{cardValue}</StyledCardValue>
+                  <StyledCardColor src={cardImage} alt=""/>
+            </CardWrapper>
       );
 }
 
