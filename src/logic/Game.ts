@@ -1,46 +1,45 @@
+import { action, observable, computed } from "mobx";
 import { Deck } from "./Deck";
 
 export class Game {
-      deck: Deck;
-      score: number;
-      index: number = 0;
+      @observable deck: Deck;
+      @observable score: number;
+      @observable index: number = 0;
+      @observable isFinished: boolean = false;
       
       constructor() {
             this.deck = new Deck();
             this.score = 0;
       }
 
-      compareCards(bet: string) {
+      @computed getCurrentCard() {
+            return this.deck.deck[this.index];
+      }
+
+      @computed flipCard() {
+            this.index += 1;
+      }
+      
+      @action compareCards(bet: string) {
             let prevCardValue = parseInt(this.getCurrentCard().value);
 
             this.flipCard();
 
             let newCardValue = parseInt(this.getCurrentCard().value);
+            console.log(this.getCurrentCard());
 
             if ((prevCardValue < newCardValue) && bet === "higher") {
                   this.score += 1;
             } else if ((prevCardValue > newCardValue) && bet === "lower") {
                   this.score += 1;
             }
+            console.log(this.score);
       }
 
-
-      getCurrentCard() {
-            return this.deck.deck[this.index];
-      }
-
-      flipCard() {
-            this.index += 1;
-      }
-
-      getScore() {
-            return this.score;
-      }
-
-      isFinished(): boolean {
+      @action checkIsFinished(): void {
             if(!this.deck.deck[this.index + 1]) {
-                  return true;
+                  this.isFinished = true;
             }
-            return false;
+            this.isFinished = false;
       }
 }

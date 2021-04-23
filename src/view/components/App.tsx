@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Game } from "../../logic/Game";
 import { GlobalStyle } from '../styles/GlobalStyle';
+import { Game } from "../../logic/Game";
 import Card from './Card';
 import NextButton from './NextButton';
 import ScoreDiv from './ScoreDiv';
-
-
-let game = new Game();
+import { observer } from 'mobx-react-lite';
+import { autorun } from 'mobx';
 
 const ButtonWrapper = styled.div`
       display: flex;
@@ -15,38 +14,43 @@ const ButtonWrapper = styled.div`
       justify-content: center;
 `;
 
+let game = new Game();
 
-function App() {
-  const [score, setScore] = useState(game.getScore());
-  const [cardValue, setCardValue] = useState(game.getCurrentCard().value);
-  const [cardColor, setCardColor] = useState(game.getCurrentCard().color);
-  const [isDisabled, setIsDisabled] = useState(false);
+autorun(() => {console.log(game.isFinished)});
+
+autorun(() => {console.log(game.deck)});
+
+export const App = observer(() => {
+  // const [score, setScore] = useState(game.getScore());
+  // const [cardValue, setCardValue] = useState(game.getCurrentCard().value);
+  // const [cardColor, setCardColor] = useState(game.getCurrentCard().color);
+  // const [isDisabled, setIsDisabled] = useState(false);
 
 
-  function moveToNext(bet: string) {
-    if(!game.isFinished()) {
-      game.compareCards(bet);
-    } else {
-      setIsDisabled(true);
-    }
+  // function moveToNext(bet: string) {
+  //   if(!game.isFinished) {
+  //     game.compareCards(bet);
+    // } else {
 
-    setScore(game.getScore());
-    setCardValue(game.getCurrentCard().value);
-    setCardColor(game.getCurrentCard().color);
-  }
+    // }
+
+    // setScore(game.getScore());
+    // setCardValue(game.getCurrentCard().value);
+    // setCardColor(game.getCurrentCard().color);
+  // }
 
   return (
     <>
       <GlobalStyle/>
-      <Card color={cardColor} value={cardValue}></Card>
+      <Card color={game.getCurrentCard().color} value={game.getCurrentCard().value}></Card>
       <ButtonWrapper>
-        <NextButton disabled={isDisabled} onClick={() => moveToNext("higher")}>Higher</NextButton>
-        <NextButton disabled={isDisabled} onClick={() => moveToNext("lower")}>Lower</NextButton>
+        <NextButton disabled={game.isFinished} onClick={() => game.compareCards("higher")}>Higher</NextButton>
+        <NextButton disabled={game.isFinished} onClick={() => game.compareCards("lower")}>Lower</NextButton>
       </ButtonWrapper>
-      {!isDisabled && <ScoreDiv>Current score: {score}</ScoreDiv>}
-      {isDisabled && <ScoreDiv>Game over, your final score is {score}</ScoreDiv>}
+      {!game.isFinished && <ScoreDiv>Current score: {game.score}</ScoreDiv>}
+      {game.isFinished && <ScoreDiv>Game over, your final score is {game.score}</ScoreDiv>}
     </>
   );
-}
+})
 
-export default App;
+
