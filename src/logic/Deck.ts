@@ -1,4 +1,4 @@
-import { action, observable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 import { Card } from "./Card";
 import { Color } from "./Color";
 import { Figure } from "./Figure";
@@ -20,6 +20,7 @@ export class Deck {
                 })
 
                 this.shuffle();
+                makeObservable(this);
         }
 
         @action shuffle() {

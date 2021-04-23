@@ -1,4 +1,4 @@
-import { action, observable, computed } from "mobx";
+import { action, observable, computed, makeObservable } from "mobx";
 import { Deck } from "./Deck";
 
 export class Game {
@@ -10,23 +10,24 @@ export class Game {
       constructor() {
             this.deck = new Deck();
             this.score = 0;
+            makeObservable(this);
       }
 
-      @computed getCurrentCard() {
+      @computed get getCurrentCard() {
             return this.deck.deck[this.index];
       }
 
-      @computed flipCard() {
+      @action flipCard() {
             this.index += 1;
       }
       
       @action compareCards(bet: string) {
-            let prevCardValue = parseInt(this.getCurrentCard().value);
+            let prevCardValue = parseInt(this.getCurrentCard.value);
 
             this.flipCard();
 
-            let newCardValue = parseInt(this.getCurrentCard().value);
-            console.log(this.getCurrentCard());
+            let newCardValue = parseInt(this.getCurrentCard.value);
+            console.log(this.getCurrentCard);
 
             if ((prevCardValue < newCardValue) && bet === "higher") {
                   this.score += 1;

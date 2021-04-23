@@ -1,4 +1,4 @@
-import { observable } from "mobx";
+import { makeObservable, observable } from "mobx";
 
 export class Card {
         @observable value: string;
@@ -7,5 +7,6 @@ export class Card {
         constructor(val: string, color: string) {
                 this.value = val;
                 this.color = color;
+                makeObservable(this);
         }
 }
