@@ -11,11 +11,21 @@ import { autorun } from 'mobx';
 
 let game = new Game();
 
-autorun(() => {console.log(game.isFinished)});
 
-autorun(() => {console.log(game.deck)});
+autorun(() => {console.log(
+  "Current card: "
+  + game.getCurrentCard.value
+  + " of "
+  + game.getCurrentCard.color)
+});
 
-export const App = observer(() => {
+  autorun(() => {console.log(
+    "Point gained! Current score: "
+    + game.score)
+  });
+
+
+const App = () => {
 
   return (
     <>
@@ -29,11 +39,14 @@ export const App = observer(() => {
       {game.isFinished && <ScoreDiv>Game over, your final score is {game.score}</ScoreDiv>}
     </>
   );
-})
+}; 
+
 
 const ButtonWrapper = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
 `;
+
+export default observer(App);
 

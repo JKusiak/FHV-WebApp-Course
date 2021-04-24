@@ -2,10 +2,26 @@ import React from 'react';
 import { FC } from 'react';
 import styled from 'styled-components';
 
+
 interface ButtonProps {
       disabled: boolean; 
       onClick: () => void;
 }
+
+const NextButton:FC<ButtonProps> = (props) => {     
+      function handleClick() {
+            if (props.disabled) {
+                  return;
+            } else {
+                  props.onClick();
+            }
+      }
+
+      return (
+            <StyledNextButton onClick={handleClick}>{props.children} </StyledNextButton>
+      );
+}     
+
 
 const StyledNextButton = styled.button`   
       text-align: center;
@@ -23,20 +39,5 @@ const StyledNextButton = styled.button`
             background-color: #f2e3d5;
       }
 `;
-
-const NextButton:FC<ButtonProps> = (props) => {     
-      function handleClick() {
-            if (props.disabled) {
-                  return;
-            }
-            else {
-                  props.onClick();
-            }
-      }
-
-      return (
-            <StyledNextButton onClick={handleClick}>{props.children} </StyledNextButton>
-      );
-}     
 
 export default NextButton;    
