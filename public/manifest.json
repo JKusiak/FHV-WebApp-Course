@@ -1,6 +1,6 @@
 {
-  "short_name": "Card Game",
-  "name": "War card game with one deck of cards",
+  "short_name": "Giphs Gallery",
+  "name": "Giphy API based gallery of giphs",
   "icons": [
   ],
   "start_url": ".",
