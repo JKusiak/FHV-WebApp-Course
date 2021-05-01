@@ -1,4 +1,4 @@
-export enum Page {
+export enum NavPage {
       TRENDING,
       SEARCH,
 }

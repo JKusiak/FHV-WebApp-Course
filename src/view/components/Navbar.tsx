@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { observer } from "mobx-react-lite";
-import { Page } from "../../logic/Page";
+import { NavPage } from "../../logic/NavPage";
 import { Store } from "../../logic/Store";
 import MenuButton from "./MenuButton";
 
@@ -12,8 +12,10 @@ const Navbar: FC<NavProps> = (props) => {
 
       return (
             <>
-                  <MenuButton store={props.store} onClick={() => props.store.setPage(Page.TRENDING)}>Trending</MenuButton>
-                  <MenuButton store={props.store} onClick={() => props.store.setPage(Page.SEARCH)}>Search</MenuButton>
+                  <MenuButton store={props.store} onClick={
+                        () => props.store.setNavigatonPage(NavPage.TRENDING)}>Trending</MenuButton>
+                  <MenuButton store={props.store} onClick={
+                        () => props.store.setNavigatonPage(NavPage.SEARCH)}>Search</MenuButton>
             </>
       )
 }
