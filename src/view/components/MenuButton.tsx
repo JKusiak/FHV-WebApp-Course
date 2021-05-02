@@ -9,7 +9,7 @@ interface ButtonProps {
       onClick(): void;
 }
 
-const Button: FC<ButtonProps> = (props) => {
+const MenuButton: FC<ButtonProps> = (props) => {
 
       function handleClick(page: any) {
             props.onClick();
@@ -21,4 +21,4 @@ const Button: FC<ButtonProps> = (props) => {
 
 }
 
-export default observer(Button);
+export default observer(MenuButton);
