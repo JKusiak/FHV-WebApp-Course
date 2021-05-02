@@ -37,6 +37,7 @@ export class Store {
 
       @action setNavigatonPage(navPage: NavPage) {
             this.currentNavPage = navPage;
+            this.currentPage = 1;
       }
 
       @computed get getNavigationPage() {

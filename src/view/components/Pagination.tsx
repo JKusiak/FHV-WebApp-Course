@@ -38,6 +38,4 @@ const PaginatonWrapper = styled.div`
 
 `;
 
-
-
 export default Pagination;
