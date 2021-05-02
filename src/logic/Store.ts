@@ -39,6 +39,9 @@ export class Store {
 
       @action setNavigatonPage(navPage: NavPage) {
             this.currentNavPage = navPage;
+            this.giphs = [];
+            this.fetchContent(this.currentNavPage, this.searchContent);
+            console.log(this.currentPage);
       }
 
       @computed get getNavigationPage() {
@@ -61,18 +64,47 @@ export class Store {
             this.isLoaded = true;
       }
 
+      @action setSearchContent(searchContent: string) {
+            this.searchContent = searchContent;
+            this.giphs = [];
+            this.fetchContent(this.currentNavPage, this.searchContent);
+            console.log(this.currentPage);
+      }
+
       @action setPage(type: string, searchResult?: string) {
             switch(type) {
             case "next":
-                  this.currentPage += 1;
+                  if (this.currentPage < this.totalPages) {
+                        this.currentPage += 1;
+                  }
+
+                  this.giphs = [];
+                  this.fetchContent(this.currentNavPage, this.searchContent);
+                  console.log(this.currentPage);
                   break;
             case "previous":
-                  if (this.currentPage != 1) {
+                  if (this.currentPage > 1) {
                         this.currentPage -= 1;
                   }
+
+                  this.giphs = [];
+                  this.fetchContent(this.currentNavPage, this.searchContent);
+                  console.log(this.currentPage);
                   break;
             case "search":
-                  this.currentPage = parseInt(searchResult || "1");
+                  let searchAsNumber = parseInt(searchResult || "1");
+
+                  if (searchAsNumber > this.totalPages) {
+                        this.currentPage = this.totalPages;  
+                  } else if (isNaN(searchAsNumber)){
+                        this.currentPage = 1;
+                  } else {
+                        this.currentPage = searchAsNumber;
+                  }
+
+                  this.giphs = [];
+                  this.fetchContent(this.currentNavPage, this.searchContent);
+                  console.log(this.currentPage);
                   break;
             }
             
@@ -105,7 +137,7 @@ export class Store {
             fetch(url)
             .then((response) => response.json())
             .then((json) => {
-                  // console.log(json);
+                  console.log(json);
                   (json.data.forEach((row: { title: string; images: { fixed_height: { url: string; }; }; }) => {  
                         this.addGiph(row.title, row.images.fixed_height.url);
                   }));

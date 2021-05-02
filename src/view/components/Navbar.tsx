@@ -11,18 +11,17 @@ interface NavProps {
 const Navbar: FC<NavProps> = (props) => {
 
       return (
-            <>
-                  <MenuButton store={props.store} onClick={
-                        () => {
-                              props.store.setNavigatonPage(NavPage.TRENDING);
-                              console.log(props.store.getNavigationPage);
-                        }}>Trending</MenuButton>
-                  <MenuButton store={props.store} onClick={
-                        () => { 
-                              props.store.setNavigatonPage(NavPage.SEARCH);        
-                              console.log(props.store.getNavigationPage);
-                        }}>Search</MenuButton>
-            </>
+      <>
+            <MenuButton store={props.store} onClick={() => {
+                  props.store.setNavigatonPage(NavPage.TRENDING);
+                  console.log(props.store.getNavigationPage);
+            }}>Trending</MenuButton>
+            
+            <MenuButton store={props.store} onClick={() => { 
+                  props.store.setNavigatonPage(NavPage.SEARCH);        
+                  console.log(props.store.getNavigationPage);
+            }}>Search</MenuButton>
+      </>
       )
 }
 
