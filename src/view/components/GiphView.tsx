@@ -4,13 +4,14 @@ import { FC } from "react";
 interface giphProps{
       name: string;
       url: string;
+      key: number;
 }
 
 const GiphView:FC<giphProps> = (props) => {
       return (
       <>
-            <text>{props.name}</text>
-            <img src={props.url} alt={props.name}></img>
+            <p>{props.name}</p>
+            <img src={props.url} alt="not loaded"></img>
       </>
       )
 }

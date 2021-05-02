@@ -13,9 +13,15 @@ const Navbar: FC<NavProps> = (props) => {
       return (
             <>
                   <MenuButton store={props.store} onClick={
-                        () => props.store.setNavigatonPage(NavPage.TRENDING)}>Trending</MenuButton>
+                        () => {
+                              props.store.setNavigatonPage(NavPage.TRENDING);
+                              console.log(props.store.getNavigationPage);
+                        }}>Trending</MenuButton>
                   <MenuButton store={props.store} onClick={
-                        () => props.store.setNavigatonPage(NavPage.SEARCH)}>Search</MenuButton>
+                        () => { 
+                              props.store.setNavigatonPage(NavPage.SEARCH);        
+                              console.log(props.store.getNavigationPage);
+                        }}>Search</MenuButton>
             </>
       )
 }

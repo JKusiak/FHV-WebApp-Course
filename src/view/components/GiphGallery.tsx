@@ -3,17 +3,17 @@ import { FC } from "react";
 import { Store } from "../../logic/Store";
 import GiphView from "./GiphView";
 
-interface GiphContentProps{
+interface GiphGalleryProps{
       store: Store;
 }
 
-const GiphContent:FC<GiphContentProps> = (props) => {
+const GiphGallery:FC<GiphGalleryProps> = (props) => {
 
       return (
       <>
-            {props.store.giphs.map((currentGif) => <GiphView name={currentGif.name} url={currentGif.url}></GiphView> )}
+            {props.store.giphs.map((currentGif, key) => <GiphView name={currentGif.name} url={currentGif.url} key={key}></GiphView> )}
       </>
       )
 }
 
-export default observer(GiphContent);
+export default observer(GiphGallery);

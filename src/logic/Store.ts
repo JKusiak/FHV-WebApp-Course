@@ -1,26 +1,32 @@
 import { NavPage } from "./NavPage";
-import {autorun} from "mobx";
+import {action, autorun, computed, makeObservable, observable} from "mobx";
 import { Giph } from "./Giph";
 
 export class Store {
 
       static APIKey = "b19u8eF8VgRCUL3uNwuWQYaizXwdpMUD";
-      static maxGifsPerPage: number = 25;
+      static maxGifsPerPage: number = 10;
       
       disposer;
-      giphs: Giph[];
-      currentNavPage: NavPage;
-      isLoaded: boolean;
-      searchContent: string;
+      @observable giphs: Giph[];
+      @observable currentNavPage: NavPage;
+      @observable isLoaded: boolean;
+      @observable currentPage: number;
+      @observable totalPages: number;
+      @observable searchContent: string;
 
       constructor() {
-            this.currentNavPage = NavPage.TRENDING;
-            this.isLoaded = true;
-            this.searchContent = '';
             this.giphs = [];
+            this.currentNavPage = NavPage.TRENDING;
+            this.isLoaded = false;
+            this.currentPage = 1;
+            this.totalPages = 1;
+            this.searchContent = '';
+            
             this.disposer = autorun(() => {
                   this.fetchContent(this.currentNavPage, this.searchContent);
             });
+            makeObservable(this);
       }
 
       static createStore(): Store {
@@ -31,50 +37,84 @@ export class Store {
             this.disposer();
       }
 
-      setNavigatonPage(navPage: NavPage) {
+      @action setNavigatonPage(navPage: NavPage) {
             this.currentNavPage = navPage;
       }
 
-      getNavigationPage() {
+      @computed get getNavigationPage() {
             return this.currentNavPage;
       }
 
-      setGiphs(giphs: Giph[]) {
-            this.giphs = giphs;
+      @action addGiph(title: string, url: string) {
+            this.giphs.push(new Giph(title, url));
       }
 
-      getGiphs() {
+      @computed get getGiphs() {
             return this.giphs;
       }
 
+      @action deleteGiphs() {
+            this.giphs = [];
+      }
 
-      createURL(navPage: NavPage, searchContent?: string) {
+      @action setLoaded() {
+            this.isLoaded = true;
+      }
+
+      @action setPage(type: string, searchResult?: string) {
+            switch(type) {
+            case "next":
+                  this.currentPage += 1;
+                  break;
+            case "previous":
+                  if (this.currentPage != 1) {
+                        this.currentPage -= 1;
+                  }
+                  break;
+            case "search":
+                  this.currentPage = parseInt(searchResult || "1");
+                  break;
+            }
+            
+      }
+
+      @computed get getPage() {
+            return this.currentPage;
+      }
+
+      @action createURL(navPage: NavPage, searchContent?: string) {
             let url;
 
             switch(navPage) {
                   case NavPage.TRENDING:
-                        url = `https://api.giphy.com/v1/gifs/trending?api_key=${Store.APIKey}&limit=${Store.maxGifsPerPage}`;
+                        url = `https://api.giphy.com/v1/gifs/trending?api_key=${Store.APIKey}&limit=${Store.maxGifsPerPage}&offset=${(this.currentPage - 1) * Store.maxGifsPerPage}`;
                         break;
 
                   case NavPage.SEARCH:
-                        url = `https://api.giphy.com/v1/gifs/search?api_key=${Store.APIKey}&limit=${Store.maxGifsPerPage}&q=${searchContent}`;
+                        url = `https://api.giphy.com/v1/gifs/search?api_key=${Store.APIKey}&limit=${Store.maxGifsPerPage}&offset=${(this.currentPage - 1) * Store.maxGifsPerPage}&q=${searchContent}`;
                         break;
             }
 
             return url;
       }
 
-      fetchContent(navPage: NavPage, searchContent?: string) {
+      @action fetchContent(navPage: NavPage, searchContent?: string) {
             let url = this.createURL(navPage, searchContent);
+            this.isLoaded = false;
 
             fetch(url)
             .then((response) => response.json())
             .then((json) => {
-                  (json.data.forEach((row: { url: string; title: string; }) => {
-                        this.giphs.push(new Giph(row.title, row.url));
+                  // console.log(json);
+                  (json.data.forEach((row: { title: string; images: { fixed_height: { url: string; }; }; }) => {  
+                        this.addGiph(row.title, row.images.fixed_height.url);
                   }));
-            });
+                  let allGiphs = json.pagination.total_count;
 
-            console.log(this.giphs);
+                  this.totalPages = Math.ceil(allGiphs / Store.maxGifsPerPage)
+
+                  this.setLoaded();
+                  console.log(this.giphs);
+            });     
       }
 }
