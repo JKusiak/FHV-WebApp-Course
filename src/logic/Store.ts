@@ -5,9 +5,9 @@ import { Giph } from "./Giph";
 export class Store {
 
       static APIKey = "b19u8eF8VgRCUL3uNwuWQYaizXwdpMUD";
-      static maxGifsPerPage: number = 10;
-      
+      static maxGifsPerPage: number = 9;
       disposer;
+      
       @observable giphs: Giph[];
       @observable currentNavPage: NavPage;
       @observable isLoaded: boolean;
@@ -24,14 +24,12 @@ export class Store {
             this.searchContent = '';
             
             this.disposer = autorun(() => {
-                  this.fetchContent(this.currentNavPage, this.searchContent);
+                  this.deleteGiphs();
+                  this.fetchContent(this.currentNavPage, this.currentPage, this.searchContent);
             });
             makeObservable(this);
       }
 
-      static createStore(): Store {
-            return new Store();
-      }
 
       destroyStore(): void {
             this.disposer();
@@ -39,9 +37,6 @@ export class Store {
 
       @action setNavigatonPage(navPage: NavPage) {
             this.currentNavPage = navPage;
-            this.giphs = [];
-            this.fetchContent(this.currentNavPage, this.searchContent);
-            console.log(this.currentPage);
       }
 
       @computed get getNavigationPage() {
@@ -50,10 +45,6 @@ export class Store {
 
       @action addGiph(title: string, url: string) {
             this.giphs.push(new Giph(title, url));
-      }
-
-      @computed get getGiphs() {
-            return this.giphs;
       }
 
       @action deleteGiphs() {
@@ -66,9 +57,6 @@ export class Store {
 
       @action setSearchContent(searchContent: string) {
             this.searchContent = searchContent;
-            this.giphs = [];
-            this.fetchContent(this.currentNavPage, this.searchContent);
-            console.log(this.currentPage);
       }
 
       @action setPage(type: string, searchResult?: string) {
@@ -77,19 +65,11 @@ export class Store {
                   if (this.currentPage < this.totalPages) {
                         this.currentPage += 1;
                   }
-
-                  this.giphs = [];
-                  this.fetchContent(this.currentNavPage, this.searchContent);
-                  console.log(this.currentPage);
                   break;
             case "previous":
                   if (this.currentPage > 1) {
                         this.currentPage -= 1;
                   }
-
-                  this.giphs = [];
-                  this.fetchContent(this.currentNavPage, this.searchContent);
-                  console.log(this.currentPage);
                   break;
             case "search":
                   let searchAsNumber = parseInt(searchResult || "1");
@@ -101,10 +81,6 @@ export class Store {
                   } else {
                         this.currentPage = searchAsNumber;
                   }
-
-                  this.giphs = [];
-                  this.fetchContent(this.currentNavPage, this.searchContent);
-                  console.log(this.currentPage);
                   break;
             }
             
@@ -115,7 +91,7 @@ export class Store {
       }
 
       @action createURL(navPage: NavPage, searchContent?: string) {
-            let url;
+            let url = "";
 
             switch(navPage) {
                   case NavPage.TRENDING:
@@ -130,14 +106,13 @@ export class Store {
             return url;
       }
 
-      @action fetchContent(navPage: NavPage, searchContent?: string) {
+      @action fetchContent(navPage: NavPage, currentPage: number, searchContent?: string) {
             let url = this.createURL(navPage, searchContent);
             this.isLoaded = false;
 
             fetch(url)
             .then((response) => response.json())
             .then((json) => {
-                  console.log(json);
                   (json.data.forEach((row: { title: string; images: { fixed_height: { url: string; }; }; }) => {  
                         this.addGiph(row.title, row.images.fixed_height.url);
                   }));
@@ -146,7 +121,6 @@ export class Store {
                   this.totalPages = Math.ceil(allGiphs / Store.maxGifsPerPage)
 
                   this.setLoaded();
-                  console.log(this.giphs);
             });     
       }
 }

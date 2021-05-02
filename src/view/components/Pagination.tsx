@@ -1,4 +1,5 @@
 import { FC } from "react";
+import styled from "styled-components";
 import { Store } from "../../logic/Store";
 import NextButton from "./NextButton";
 
@@ -16,7 +17,7 @@ const Pagination: FC<PaginationProps> = (props) => {
           
 
       return (
-      <>
+      <PaginatonWrapper>
             <NextButton store={props.store} onClick={() => {props.store.setPage("previous")}}>PREVIOUS</NextButton>
             <input type="text" 
                   placeholder={props.store.currentPage.toString()}
@@ -25,8 +26,18 @@ const Pagination: FC<PaginationProps> = (props) => {
             <span> / {props.store.totalPages}</span>
             <NextButton store={props.store} onClick={() => {props.store.setPage("next");}}>NEXT</NextButton>
             
-      </>
+      </PaginatonWrapper>
       )
 }
+
+const PaginatonWrapper = styled.div`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1em;
+
+`;
+
+
 
 export default Pagination;

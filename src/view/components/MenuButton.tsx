@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { FC } from "react";
+import styled from "styled-components";
 import { Store } from "../../logic/Store";
 
 
@@ -16,9 +17,26 @@ const MenuButton: FC<ButtonProps> = (props) => {
       }
 
       return (
-            <button onClick={handleClick}>{props.children}</button>
+            <StyledButton onClick={handleClick}>{props.children}</StyledButton>
       )
 
 }
+
+const StyledButton = styled.div`
+      text-align: center;
+      font-size: 25px;
+      background-color: #F9EADC;
+      color: #000000;
+      border: none;
+      border-radius: 5px;
+      padding: 20px;
+      width: 5em;
+      margin: 5px;
+      cursor: pointer;
+
+      :hover {
+            background-color: #f2e3d5;
+      }
+`;
 
 export default observer(MenuButton);
