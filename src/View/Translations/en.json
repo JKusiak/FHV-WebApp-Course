@@ -1,0 +1,13 @@
+{
+      "text.city.gender.male": "He left the New York City and drove for over {number} kilometer.",
+      "text.city.gender.female": "She left the New York City and drove for over {number} kilometer.",
+      "text.city.gender.undisclosed": "They left the New York City and drove for over {number} kilometer.",
+
+      "text.city.gender.male.plural": "He left the New York City and drove for over {number} kilometers.",
+      "text.city.gender.female.plural": "She left the New York City and drove for over {number} kilometers.",
+      "text.city.gender.undisclosed.plural": "They left the New York City and drove for over {number} kilometers.",
+
+      "text.nena": "{number} Red Balloon",
+      "text.nena.plural": "{number} Red Balloons"
+
+}

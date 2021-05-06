@@ -1,0 +1,9 @@
+{
+      "text.city.gender.male": "On opuścił Nowy Jork i jechał przez {number} kilometrów",
+      "text.city.gender.female": "Ona opuściła Nowy Jork i jechała przez {number} kilometrów",
+      "text.city.gender.undisclosed": "Oni opuścili Nowy Jork i jechali przez {number} kilometrów",
+
+      "text.nena": "{number} Czerwony Balonik",
+      "text.nena.plural": "{number} Czerwone Baloniki"
+
+}

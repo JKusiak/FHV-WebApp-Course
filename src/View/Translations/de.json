@@ -1,0 +1,11 @@
+{
+      "text.city.gender.male": "Er verließ New York City und fuhr über {number} Kilometerh",
+      "text.city.gender.female": "Sie verließ New York City und fuhr über {number} Kilometerh",
+      "text.city.gender.undisclosed": "Xier verließen New York City und fuhr über {number} Kilometerh",
+      "text.city.gender.male.plural": "Er verließ New York City und fuhr über {number} Kilometerh",
+      "text.city.gender.female.plural": "Sie verließ New York City und fuhr über {number} Kilometerh",
+      "text.city.gender.undisclosed.plural": "Xier verließen New York City und fuhr über {number} Kilometerh",
+      
+      "text.nena": "{number} Luftballon",
+      "text.nena.plural": "{number} Luftballons"
+}
