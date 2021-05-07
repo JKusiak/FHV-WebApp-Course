@@ -1,9 +1,18 @@
 {
-      "text.city.gender.male": "On opuścił Nowy Jork i jechał przez {number} kilometrów",
-      "text.city.gender.female": "Ona opuściła Nowy Jork i jechała przez {number} kilometrów",
-      "text.city.gender.undisclosed": "Oni opuścili Nowy Jork i jechali przez {number} kilometrów",
+      "text.city.gender.male": "On opuścił Nowy Jork i jechał przez {number} kilometr",
+      "text.city.gender.female": "Ona opuściła Nowy Jork i jechała przez {number} kilometr",
+      "text.city.gender.undisclosed": "Oni opuścili Nowy Jork i jechali przez {number} kilometr",
+
+      "text.city.gender.male.plural": "On opuścił Nowy Jork i jechał przez {number} kilometrów",
+      "text.city.gender.female.plural": "Ona opuściła Nowy Jork i jechała przez {number} kilometrów",
+      "text.city.gender.undisclosed.plural": "Oni opuścili Nowy Jork i jechali przez {number} kilometrów",
+
+      "text.city.gender.male.zero": "On opuścił Nowy Jork i jechał ledwie tyle co nic",
+      "text.city.gender.female.zero": "Ona opuściła Nowy Jork i jechała ledwie tyle co nic",
+      "text.city.gender.undisclosed.zero": "Oni opuścili Nowy Jork i jechali ledwie tyle co nic",     
 
       "text.nena": "{number} Czerwony Balonik",
-      "text.nena.plural": "{number} Czerwone Baloniki"
+      "text.nena.plural": "{number} Czerwone Baloniki",
+      "text.nena.zero": "Nie ma Czerwonych Baloników :<"
 
 }

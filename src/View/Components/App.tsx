@@ -1,32 +1,64 @@
-import React from 'react';
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+import React, { useState} from 'react';
+import { IntlProvider } from 'react-intl';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Dates from './Dates';
 import Navbar from './Navbar';
 import Numbers from './Numbers';
 import Texts from './Texts';
+import German from "../Translations/de.json";
+import English from "../Translations/en.json";
+import Polish from "../Translations/pl.json";
+
 
 
 const App = () => {
+  const [locale, setLocale] = useState('en');
+ 
+  let savedLocale = localStorage.getItem('language');
+  let parsedLocale = savedLocale === null? 'en' : savedLocale;
+
+  setLocale(parsedLocale);
+
+  let lang;
+  switch(savedLocale) {
+    case 'en':
+      lang = English;
+      break;
+    case 'de':
+      lang = German;
+      break;
+    case 'pl':
+      lang = Polish;
+      break;
+  }
+
+
+
   return (
     <Router>
-    <div>
-      <Navbar/>
+      <IntlProvider locale={locale} messages={lang}>
+        <Navbar onSelect={(e) => {
+            setLocale(e)
+            sessionStorage.setItem('language', e);
+        }}/>
+        
+        <Switch>
+          <Route path="/dates" >
+            <Dates/>
+          </Route>
+          <Route path="/numbers">
+            <Numbers/>
+          </Route>
+          <Route path="/texts">
+            <Texts/>
+          </Route>
+          <Route path="/">
+            <h1>Main page</h1>
+          </Route>
+        </Switch>
+
+      </IntlProvider>
       
-      <Switch>
-        <Route path="/dates" >
-          <Dates/>
-        </Route>
-        <Route path="/numbers">
-          <Numbers/>
-        </Route>
-        <Route path="/texts">
-          <Texts/>
-        </Route>
-        <Route path="/">
-          <h1>Main page</h1>
-        </Route>
-      </Switch>
-    </div>
   </Router>
   );
 }

@@ -5,21 +5,38 @@ const Numbers = () => {
       const[value, setValue] = useState(0);
 
       return (
-            <IntlProvider locale="en">
-                  <input type="number" defaultValue={value} onChange={(e) => setValue(parseFloat(e.target.value))}></input>
+            <>
+                  <input type="number" 
+                        defaultValue={value} 
+                        onChange={(e) => setValue(parseFloat(e.target.value))}/>
 
                   <p>Standard number: </p>
-                  <FormattedNumber value={value}/>
+                  <FormattedNumber 
+                        value={value}
+                  />
 
                   <p>Byte notation: </p>
-                  <FormattedNumber value={value} style="unit" unit="kilobyte"/>
+                  <FormattedNumber 
+                        value={value} 
+                        style="unit" 
+                        unit="kilobyte"
+                  />
 
                   <p>Price in euro: </p>
-                  <FormattedNumber value={value} style="currency" currency="EUR"/>
+                  <FormattedNumber 
+                        value={value} 
+                        style="currency" 
+                        currency="EUR"
+                  />
 
-                  <p>Price in euro with higher decimal places precision: </p>
-                  <FormattedNumber value={value} style="currency" currency="EUR" minimumFractionDigits={5}/>
-            </IntlProvider>   
+                  <p>Price in euro with higher precision: </p>
+                  <FormattedNumber 
+                        value={value} 
+                        style="currency" 
+                        currency="EUR" 
+                        minimumFractionDigits={5}
+                  />
+            </>   
       );
 }
 

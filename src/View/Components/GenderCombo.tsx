@@ -15,11 +15,11 @@ const GenderCombo: FC<GenderComboProps> = (props) => {
 
       return (
             <ComboBox   
-                        options={genderOptions} 
-                        placeholder="choose gender" 
-                        focusColor="#F9EADC"
-                        onSelect={(e) => props.onSelect(e)}
-                        />
+                  options={genderOptions} 
+                  placeholder="choose gender" 
+                  focusColor="#F9EADC"
+                  onSelect={(e) => props.onSelect(e)}
+            />
       );
 }
 

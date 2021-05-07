@@ -1,19 +1,23 @@
-import React from "react";
+import React, { FC } from "react";
 import ComboBox from 'react-responsive-combo-box'
 
-const LocaleCombo = () => {
+interface LocaleComboProps {
+      onSelect: (arg0: string) => void;
+}
+
+const LocaleCombo: FC<LocaleComboProps> = (props) => {
       const locale = [
-            'PL',
-            'EN',
-            'DE',
+            'pl',
+            'en',
+            'de',
           ]
       
       return (
             <ComboBox   options={locale} 
                         placeholder="choose country" 
                         focusColor="#F9EADC"
-                        // onSelect={(option) => setSelectedOption(option)}
-                        />
+                        onSelect={(e) => props.onSelect(e)}
+            />
       );
 }
 
