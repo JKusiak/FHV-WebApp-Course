@@ -25,7 +25,7 @@ const NavbarWrapper = styled.div`
       background: #F9EADC;
       display: flex;
       justify-content: flex-end;
-      align-items: center;
+     
       margin-left: 5em;
       margin-right: 5em;
 

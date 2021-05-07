@@ -53,7 +53,6 @@ const TextsWrapper = styled.div`
       margin-top: 3em;
 
       > * {
-            font-size: 20px;
             margin-top: 1em;
       }   
 `
