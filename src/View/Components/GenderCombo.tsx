@@ -17,7 +17,7 @@ const GenderCombo: FC<GenderComboProps> = (props) => {
             <ComboBox   
                   options={genderOptions} 
                   placeholder="choose gender" 
-                  focusColor="#F9EADC"
+                  focusColor="#f2e3d5"
                   onSelect={(e) => props.onSelect(e)}
             />
       );

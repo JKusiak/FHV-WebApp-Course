@@ -8,6 +8,7 @@ import Texts from './Texts';
 import German from "../Translations/de.json";
 import English from "../Translations/en.json";
 import Polish from "../Translations/pl.json";
+import { GlobalStyle } from '../Styles/GlobalStyles';
 
 
 
@@ -33,6 +34,8 @@ const App = () => {
 
 
   return (
+    <>
+    <GlobalStyle/>
     <Router>
       <IntlProvider locale={locale} messages={lang}>
         <Navbar onSelect={(e) => setLocale(e)}/>
@@ -48,13 +51,14 @@ const App = () => {
             <Texts/>
           </Route>
           <Route path="/">
-            <h1>Main page</h1>
+            <h1>Not much here really</h1>
           </Route>
         </Switch>
 
       </IntlProvider>
       
   </Router>
+  </>
   );
 }
 

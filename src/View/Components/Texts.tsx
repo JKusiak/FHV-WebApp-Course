@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FormattedMessage, IntlProvider } from "react-intl";
+import styled from "styled-components";
 
 import GenderCombo from "./GenderCombo";
 
@@ -18,24 +19,43 @@ const Texts = () => {
       }
 
       return (
-            <>
+            <TextsWrapper>
                   <input type="number" defaultValue={value} onChange={(e) => setValue(parseFloat(e.target.value))}></input>
-                  <GenderCombo 
-                        onSelect={(e) => setGender(e)}
-                  />
+                  <p>
+                        <GenderCombo 
+                              onSelect={(e) => setGender(e)}
+                        />
+                  </p>
+                  
 
-                  <FormattedMessage 
-                        id={`text.city.gender.${gender}${checkPlural()}`}
-                        values={{number: value}}
-                  />
-
-                  <br></br>
-                  <FormattedMessage 
-                        id={`text.nena${checkPlural()}`}
-                        values={{number: value}}
-                  />     
-            </>
+                  <p>
+                        <FormattedMessage 
+                              id={`text.city.gender.${gender}${checkPlural()}`}
+                              values={{number: value}}
+                        />
+                  </p>
+                        
+                  <p>
+                        <FormattedMessage 
+                              id={`text.nena${checkPlural()}`}
+                              values={{number: value}}
+                        />  
+                  </p>        
+            </TextsWrapper>
       );
 }
+
+const TextsWrapper = styled.div`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 3em;
+
+      > * {
+            font-size: 20px;
+            margin-top: 1em;
+      }   
+`
 
 export default Texts;
