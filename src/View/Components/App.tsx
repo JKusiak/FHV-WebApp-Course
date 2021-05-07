@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import { IntlProvider } from 'react-intl';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Dates from './Dates';
@@ -12,15 +12,14 @@ import Polish from "../Translations/pl.json";
 
 
 const App = () => {
-  const [locale, setLocale] = useState('en');
- 
-  let savedLocale = localStorage.getItem('language');
-  let parsedLocale = savedLocale === null? 'en' : savedLocale;
+  const [locale, setLocale] = useState(localStorage.getItem('language') || 'en');
 
-  setLocale(parsedLocale);
-
+  useEffect(() => {
+    localStorage.setItem('language', locale);
+  }, [locale]);
+  
   let lang;
-  switch(savedLocale) {
+  switch(locale) {
     case 'en':
       lang = English;
       break;
@@ -33,14 +32,10 @@ const App = () => {
   }
 
 
-
   return (
     <Router>
       <IntlProvider locale={locale} messages={lang}>
-        <Navbar onSelect={(e) => {
-            setLocale(e)
-            sessionStorage.setItem('language', e);
-        }}/>
+        <Navbar onSelect={(e) => setLocale(e)}/>
         
         <Switch>
           <Route path="/dates" >
