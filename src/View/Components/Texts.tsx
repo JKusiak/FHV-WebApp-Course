@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { FormattedMessage, IntlProvider } from "react-intl";
+import { useState } from "react";
+import { FormattedMessage } from "react-intl";
 import styled from "styled-components";
 
 import GenderCombo from "./GenderCombo";
@@ -21,11 +21,11 @@ const Texts = () => {
       return (
             <TextsWrapper>
                   <input type="number" defaultValue={value} onChange={(e) => setValue(parseFloat(e.target.value))}></input>
-                  <p>
+                  
                         <GenderCombo 
                               onSelect={(e) => setGender(e)}
                         />
-                  </p>
+                  
                   
 
                   <p>

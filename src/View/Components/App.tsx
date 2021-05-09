@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import { useEffect, useState} from 'react';
 import { IntlProvider } from 'react-intl';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Dates from './Dates';
@@ -10,10 +10,8 @@ import English from "../Translations/en.json";
 import Polish from "../Translations/pl.json";
 import { GlobalStyle } from '../Styles/GlobalStyles';
 
-
-
 const App = () => {
-  const [locale, setLocale] = useState(localStorage.getItem('language') || 'en');
+  const [locale, setLocale] = useState((localStorage.getItem('language') || 'en'));
 
   useEffect(() => {
     localStorage.setItem('language', locale);

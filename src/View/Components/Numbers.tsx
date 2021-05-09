@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { FormattedNumber, IntlProvider } from "react-intl";
+import { useState } from "react";
+import { FormattedNumber } from "react-intl";
 import styled from "styled-components";
 
 const Numbers = () => {
@@ -19,14 +19,14 @@ const Numbers = () => {
                   <p>Byte notation: </p>
                   <FormattedNumber 
                         value={value} 
-                        style="unit" 
+                        style="unit"
                         unit="kilobyte"
                   />
 
                   <p>Price in euro: </p>
                   <FormattedNumber 
                         value={value} 
-                        style="currency" 
+                        style="currency"
                         currency="EUR"
                   />
 

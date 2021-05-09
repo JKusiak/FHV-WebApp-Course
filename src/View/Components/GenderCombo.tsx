@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import ComboBox from 'react-responsive-combo-box'
+import { FC } from "react";
+import ComboBox from 'react-responsive-combo-box';
 
 
 interface GenderComboProps {

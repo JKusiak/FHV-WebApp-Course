@@ -1,6 +1,5 @@
-import React, { FC } from "react";
-import ComboBox from 'react-responsive-combo-box'
-import styled from "styled-components";
+import { FC } from "react";
+import ComboBox from 'react-responsive-combo-box';
 
 interface LocaleComboProps {
       onSelect: (arg0: string) => void;

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { IntlProvider, FormattedDate } from "react-intl";
+import { useState } from "react";
+import { FormattedDate } from "react-intl";
 import styled from "styled-components";
 
 const Dates = () => {
