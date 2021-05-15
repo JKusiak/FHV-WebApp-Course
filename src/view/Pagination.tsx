@@ -5,7 +5,7 @@ import NextButton from "./NextButton";
 
 interface PaginationProps {
       store: Store;
-}
+}     
 
 const Pagination: FC<PaginationProps> = (props) => {
 
