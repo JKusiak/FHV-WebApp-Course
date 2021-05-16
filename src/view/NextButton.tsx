@@ -15,7 +15,10 @@ const NextButton: FC<ButtonProps> = (props) => {
       }
 
       return (
-            <button id={props.id} onClick={handleClick}>{props.children}</button>
+            <button id={props.id} onClick={handleClick}style={{
+                  marginLeft: 10,
+                  marginRight: 10}}>
+            {props.children}</button>
       )
 }
 

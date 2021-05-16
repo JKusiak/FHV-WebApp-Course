@@ -10,12 +10,18 @@ interface PaginationProps {
 const Pagination: FC<PaginationProps> = (props) => {
 
       return (
-      <>
+      <div style={{
+            display: 'flex',
+            justifyContent:'center',
+            alignItems:'center',
+            marginBottom: 20
+
+      }}>
             <NextButton id={'previous'} store={props.store} onClick={() => {props.store.setPage("previous")}}>PREVIOUS</NextButton>
             <span id={'paginationText'}> {props.store.currentPage.toString()} / {props.store.totalPages}</span>
             <NextButton id={'next'} store={props.store} onClick={() => {props.store.setPage("next");}}>NEXT</NextButton>
             
-      </>
+      </div>
       )
 }
 

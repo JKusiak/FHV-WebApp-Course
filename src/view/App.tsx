@@ -12,6 +12,7 @@ function App() {
     store.updateMockData(store.getPage);
   });
 
+
   return (
     <>
       <DataGallery store={store}/>
