@@ -16,7 +16,7 @@
 const casesAustriaURL = "https://api.covid19api.com/dayone/country/austria";
 const activeWorldURL = "https://api.covid19api.com/summary";
 
-const width = 900;
+const width = 1080;
 const height = 720;
 const margin = {top: 45, right: 45, bottom: 45, left: 45};
 const innerWidth = width - margin.left - margin.right;
@@ -29,16 +29,15 @@ const yValue = d => d.activeCases;
 
 function addCanvasSVG() {
       let canvas = d3.select("body")
-      .append("svg")
-            .attr("width", innerWidth)
-            .attr("height", innerHeight)
-      // .append("g")
-      //       .attr("transform", `translate(${margin.left}, ${margin.top})`);
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
 
       return canvas;
 }
 
-function drawBarGraph(data, canvas) {
+
+function renderBarGraph(data, canvas) {
       const xScale = d3.scaleBand()
             .domain(data.map(element => xValue(element)))
             .range([0, innerWidth])
@@ -48,12 +47,26 @@ function drawBarGraph(data, canvas) {
             .domain([0, d3.max(data, element => yValue(element))])
             .range([innerHeight, 0]);
 
-      canvas.selectAll('rect')
+      const marginedGroup = canvas.append("g")
+            // .attr('transform', `translate(${margin.left}, ${margin.top})`)
+
+      marginedGroup.append('text')
+            .text('Countries with most active cases worldwide');
+
+      marginedGroup.append("g")
+            .call(d3.axisBottom(xScale))
+            .attr('transform', `translate(0, ${innerHeight - 25})`)
+            .selectAll('.domain, .tick line')
+                  .remove();
+
+      marginedGroup.selectAll('rect')
             .data(data)
-            .enter().append('rect')
+            .enter()
+            .append('rect')
+            .attr('fill', '#e52728')
             .attr('height', 0)
-            .attr('width', xScale.bandwidth())
             .attr('y', () => yScale(0))
+            .attr('width', xScale.bandwidth())
             .attr('x', element => xScale(xValue(element)))
             .transition()
             .duration(3000)
@@ -61,18 +74,68 @@ function drawBarGraph(data, canvas) {
             .attr('y', element => yScale(yValue(element)))
 }
 
+
+function renderLineGraph(data, canvas) {
+
+      const xScale = d3.scaleTime()
+            .domain(d3.extent(data, element => element.date))
+            .range([0, width])
+
+      const yScale = d3.scaleLinear()
+            .domain([0, d3.max(data, element => element.activeCases)])
+            .range([height, 0]);
+            
+      const marginedGroup = canvas.append("g")
+            // .attr('transform', `translate(${margin.left}, ${margin.top})`)
+
+      marginedGroup.append('text')
+            .text('Active cases in Austria');
+
+      marginedGroup.append('g')
+            .call(d3.axisBottom(xScale))
+            .selectAll('.tick line')
+                  .remove();
+
+      marginedGroup.append('g')
+            .call(d3.axisLeft(yScale))
+            .selectAll('.tick line')
+                  .remove();
+
+      marginedGroup.append("path")
+            .datum(data)
+            .attr("fill", "none")
+            .attr("stroke", "#e52728")
+            .attr("stroke-width", 4)
+            .attr("d", d3.line()
+                .x(element => xScale(element.date))
+                .y(element => yScale(element.activeCases)));
+}
+
+
 d3.json(activeWorldURL, (error, jsonData) => {
       const barData = jsonData.Countries.map(country => {
             return {
-                  countryName: country.Country,
+                  countryName: country.CountryCode,
                   activeCases: country.TotalConfirmed - country.TotalDeaths - country.TotalRecovered
             }
       }).sort((a, b) => (b.activeCases - a.activeCases)).slice(0, 10);
-
-      console.log(barData);
-      const svgCanvas = addCanvasSVG();
-      drawBarGraph(barData, svgCanvas);
+      
+      const barCanvas = addCanvasSVG();
+      renderBarGraph(barData, barCanvas);
 });
+
+
+d3.json(casesAustriaURL, (error, jsonData) => {
+      const lineData = jsonData.map(element => {
+            return {
+                  date: new Date(element.Date),
+                  activeCases: element.Active
+            }
+      });
+
+      const lineCanvas = addCanvasSVG();
+      renderLineGraph(lineData, lineCanvas);
+})
 
 
 
